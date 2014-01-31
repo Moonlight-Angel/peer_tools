@@ -6,13 +6,13 @@
 #    By: jlejeune <jlejeune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/27 18:04:46 by jlejeune          #+#    #+#              #
-#    Updated: 2014/01/30 08:01:16 by jlejeune         ###   ########.fr        #
+#    Updated: 2014/01/31 20:54:42 by jlejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Global variables
 correction_uid_regex="s/^.*Sujet [A-Za-z0-9_-]+ (.*)<\/a>.*$/\1/p"
-corrector_uid_regex="s/^.*par <a.*>(.*)<\/a>.*$/\1/p"
+corrector_uid_regex="s/^.*<\/a> par <a.*>(.*)<\/a>.*$/\1/p"
 
 # Gets informations on people by ids
 # returns : No return
