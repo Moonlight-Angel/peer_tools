@@ -6,7 +6,7 @@
 #    By: jlejeune <jlejeune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/27 18:04:46 by jlejeune          #+#    #+#              #
-#    Updated: 2014/01/31 20:54:42 by jlejeune         ###   ########.fr        #
+#    Updated: 2014/02/01 08:36:36 by jlejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,6 +123,7 @@ get_numbers ()
 		info "-> Loading intranet index page."
 		content=`curl -sL -b "${intranet_cookies}" "https://intra.42.fr"`
 		info "-> Reading page source..."
+		i=0
 		block=0;
 		uids=""
 		while read -r line
@@ -156,9 +157,14 @@ get_numbers ()
 						else
 							uids="${uids} ${uid}"
 						fi
+						i=`expr ${i} + 1`
 					fi
 				fi
 			fi
 		done <<< "${content}"
+		if [ ${i} == 0 ]
+		then
+			error "-> No peer corrections available."
+		fi
 	fi
 }
