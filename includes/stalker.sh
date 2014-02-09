@@ -6,12 +6,13 @@
 #    By: jlejeune <jlejeune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/27 18:04:46 by jlejeune          #+#    #+#              #
-#    Updated: 2014/02/01 08:36:36 by jlejeune         ###   ########.fr        #
+#    Updated: 2014/02/10 00:05:12 by jlejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Global variables
 correction_uid_regex="s/^.*Sujet [A-Za-z0-9_-]+ (.*)<\/a>.*$/\1/p"
+correction_uid_regex2="s/^.*\(e\) <a.*>(.*)<\/a>.*$/\1/p"
 corrector_uid_regex="s/^.*<\/a> par <a.*>(.*)<\/a>.*$/\1/p"
 
 # Gets informations on people by ids
@@ -90,7 +91,7 @@ stalk_uids ()
 
 get_corrections_numbers ()
 {
-	get_numbers "${corrections_regex}" "${correction_uid_regex}"
+	get_numbers "${corrections_regex}" "${correction_uid_regex}" "${correction_uid_regex2}"
 }
 
 # Gets phone numbers of correctors
@@ -104,6 +105,7 @@ get_correctors_numbers ()
 # Gets phone numbers
 # $1 : Regular expression to discern projects
 # $2 : Regular expression to get uids from source code line
+# $3 : Same as $2
 # returns : No return
 
 get_numbers ()
@@ -149,6 +151,11 @@ get_numbers ()
 				if echo "${line}" | grep -q "devez"
 				then
 					uid=`echo "${line}" | sed -nE "${2}"`
+					uid2=`echo "${line}" | sed -nE "${3}"`
+					if [ -z "${uid}" ]
+					then
+						uid="${uid2}"
+					fi
 					if [ ! -z "${uid}" ]
 					then
 						if [ -z "${uids}" ]

@@ -6,7 +6,7 @@
 #    By: jlejeune <jlejeune@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/27 18:55:06 by jlejeune          #+#    #+#              #
-#    Updated: 2014/01/30 14:58:07 by jlejeune         ###   ########.fr        #
+#    Updated: 2014/02/10 00:10:19 by jlejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,6 +129,11 @@ get_repository ()
 			i=`expr ${i} - 1`
 		else
 			uid=`echo "${line}" | sed -nE "${correction_uid_regex}"`
+			uid2=`echo "${line}" | sed -nE "${correction_uid_regex2}"`
+			if [ -z "${uid}" ]
+			then
+				uid="${uid2}"
+			fi
 			if [ ! -z "${uid}" ]
 			then
 				info "-> Correction found."
@@ -174,6 +179,11 @@ clone_repositories ()
 	do
 		url="https://intra.42.fr`echo "${line}" | sed -nE "${url_regex}"`"
 		uid=`echo "${line}" | sed -nE "${correction_uid_regex}"`
+		uid2=`echo "${line}" | sed -nE "${correction_uid_regex2}"`
+		if [ -z "${uid}" ]
+		then
+			uid="${uid2}"
+		fi
 		if [ -z "${uid}" ]
 		then
 			error "-> Cannot find correction's uid."
