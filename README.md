@@ -19,6 +19,10 @@ Options :
   Displays phone numbers and locations of your corrections
 - Get phone numbers of correctors
   Displays phone numbers and locations of your correctors
+- Send mails to remaining corrections
+  Automatically send an e-mail to all your remaining corrections (see README in templates folder)
+- Send mails to remaining correctors
+  Automatically send an e-mail to all your remaining correctors (see README in templates folder)
 - Stalk people with their ids
   Displays phone numbers and locations of the given ids
 - Clean corrections folders

@@ -1,0 +1,12 @@
+Bonjour ${name},
+
+Vous devez me corriger sur le projet ${project}.
+Vous pouvez me contacter au ${phone} ou par e-mail ${email}.
+
+Je suis actuellement au poste ${location}.
+
+Merci d'avance,
+${sender}.
+
+--
+Ceci est un mail envoye automatiquement depuis Peer Tools.

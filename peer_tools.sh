@@ -1,24 +1,27 @@
-#!/bin/sh ******************************************************************** #
+#!/bin/sh
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    peer_tools.sh                                      :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlejeune <jlejeune@student.42.fr>          +#+  +:+       +#+         #
+#    By: jlejeune <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/01/27 04:41:11 by jlejeune          #+#    #+#              #
-#    Updated: 2014/01/30 18:38:48 by jlejeune         ###   ########.fr        #
+#    Created: 2014/02/13 02:11:07 by jlejeune          #+#    #+#              #
+#    Updated: 2014/02/13 02:11:07 by jlejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Global variables
 script_path=`dirname ${0}`
 includes_path="${script_path}/includes"
+templates_path="${script_path}/templates"
 version="2"
 verbose=0
 
 . "${includes_path}/utils.sh"
 . "${includes_path}/credentials.sh"
 . "${includes_path}/connection.sh"
+. "${includes_path}/mail.sh"
 . "${includes_path}/stalker.sh"
 . "${includes_path}/cloning.sh"
 
@@ -38,6 +41,8 @@ main ()
 			"Clone remaining corrections"
 			"Get phone numbers of remaining corrections"
 			"Get phone numbers of remaining correctors"
+			"Send mails to remaining corrections"
+			"Send mails to remaining correctors"
 			"Stalk people with their ids"
 			"Clean corrections folders"
 			"Remove .git folder in correction folders"
@@ -50,6 +55,8 @@ main ()
 			"clone_remaining_corrections"
 			"get_corrections_numbers"
 			"get_correctors_numbers"
+			"send_mail_corrections"
+			"send_mail_correctors"
 			"stalk_people"
 			"recursive_fclean"
 			"remove_git_folders"

@@ -1,12 +1,13 @@
-#!/bin/sh ******************************************************************** #
+#!/bin/sh
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    stalker.sh                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlejeune <jlejeune@student.42.fr>          +#+  +:+       +#+         #
+#    By: jlejeune <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/01/27 18:04:46 by jlejeune          #+#    #+#              #
-#    Updated: 2014/02/10 00:05:12 by jlejeune         ###   ########.fr        #
+#    Created: 2014/02/13 02:10:43 by jlejeune          #+#    #+#              #
+#    Updated: 2014/02/13 02:10:43 by jlejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +61,7 @@ stalk_uids ()
 		then
 			info "-> Getting mobile phone..."
 			regex="s/^.*<dt>Mobile<\/dt>[[:blank:]]+<dd>([0-9\ _+-]+)<\/dd>.*$/\1/p"
-				mobile=`echo "${content}" | tr -d '\n' | sed -nE "${regex}"`
+			mobile=`echo "${content}" | tr -d '\n' | sed -nE "${regex}"`
 			if [ ! -z "${mobile}" ]
 			then
 				info "-> Mobile phone found."
@@ -113,6 +114,7 @@ get_numbers ()
 	if [ -z "${1}" ] || [ -z "${2}" ]
 	then
 		echo "usage: get_numbers \"projects regex\" \"source lines regex\""
+		return
 	fi
 	echo "-> Connecting to intranet."
 	connect_to_intra
@@ -126,7 +128,7 @@ get_numbers ()
 		content=`curl -sL -b "${intranet_cookies}" "https://intra.42.fr"`
 		info "-> Reading page source..."
 		i=0
-		block=0;
+		block=0
 		uids=""
 		while read -r line
 		do

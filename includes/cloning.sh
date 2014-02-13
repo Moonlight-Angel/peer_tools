@@ -1,12 +1,13 @@
-#!/bin/sh ******************************************************************** #
+#!/bin/sh
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    cloning.sh                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlejeune <jlejeune@student.42.fr>          +#+  +:+       +#+         #
+#    By: jlejeune <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/01/27 18:55:06 by jlejeune          #+#    #+#              #
-#    Updated: 2014/02/10 00:10:19 by jlejeune         ###   ########.fr        #
+#    Created: 2014/02/13 02:10:28 by jlejeune          #+#    #+#              #
+#    Updated: 2014/02/13 02:10:28 by jlejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -186,7 +187,7 @@ clone_repositories ()
 		fi
 		if [ -z "${uid}" ]
 		then
-			error "-> Cannot find correction's uid."
+			error "-> Cannot find correction's uid."M#
 			continue
 		fi
 		echo "-> \033[4mCloning ${uid}'s repository\033[0m"
