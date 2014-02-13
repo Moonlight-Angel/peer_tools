@@ -13,20 +13,13 @@ At first use, you will be invited to enter your credentials (your real 42 creden
 Options :
 ---------
 
-- Clone remaining corrections
-  Clones all your remaining corrections
-- Get phone numbers of corrections
-  Displays phone numbers and locations of your corrections
-- Get phone numbers of correctors
-  Displays phone numbers and locations of your correctors
-- Send mails to remaining corrections
-  Automatically send an e-mail to all your remaining corrections (see README in templates folder)
-- Send mails to remaining correctors
-  Automatically send an e-mail to all your remaining correctors (see README in templates folder)
-- Stalk people with their ids
-  Displays phone numbers and locations of the given ids
-- Clean corrections folders
-  Does "make fclean" in all subdirectories of your corrections folder
+- Clone remaining corrections : clones all your remaining corrections
+- Get phone numbers of corrections : displays phone numbers and locations of your corrections
+- Get phone numbers of correctors : displays phone numbers and locations of your correctors
+- Send mails to remaining corrections : automatically send an e-mail to all your remaining corrections (see README in templates folder)
+- Send mails to remaining correctors : automatically send an e-mail to all your remaining correctors (see README in templates folder)
+- Stalk people with their ids : displays phone numbers and locations of the given ids
+- Clean corrections folders : does "make fclean" in all subdirectories of your corrections folder
 
 Version 2 :
 -----------

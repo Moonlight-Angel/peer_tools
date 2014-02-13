@@ -94,24 +94,23 @@ get_sender_infos ()
 }
 
 # Sends a mail
-# $1 : The sender uid
-# $2 : The project name
-# $3 : The content
+# $1 : The project name
+# $2 : The content
 
 send_mail ()
 {
-	if [ -z "${1}" ] || [ -z "${2}" ] || [ -z "${3}" ]
+	if [ -z "${1}" ] || [ -z "${2}" ]
 	then
-		echo "usage: send_mail \"sender uid\" \"project name\" \"content\""
+		echo "usage: send_mail \"project name\" \"content\""
 		return
 	fi
 	echo "-> Sending mail to \033[4m${name}\033[0m"
-	subject="Correction du projet ${2} - ${1}"
-	if echo "${3}" | grep -q "<html>"
+	subject="Correction du projet ${1} - ${login}"
+	if echo "${2}" | grep -q "<html>"
 	then
 		subject=`echo "${subject}\nContent-Type: text/html"`
 	fi
-	mail=`echo "${3}" | mail -s "${subject}" "${name}@student.42.fr" -f "${1}@student.42.fr" -F "${1}"`
+	mail=`echo "${2}" | mail -s "${subject}" "${name}@student.42.fr" -f "${login}@student.42.fr" -F "${login}"`
 	if [ ${?} == 1 ]
 	then
 		error "-> Error while sending mail."
@@ -231,7 +230,7 @@ send_mails ()
 					then
 						name="${uid}"
 						template_eval=`eval "echo \"${template}\""`
-						send_mail "${uid}" "${project}" "${template_eval}"
+						send_mail "${project}" "${template_eval}"
 						i=`expr ${i} + 1`
 					fi
 				fi
