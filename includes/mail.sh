@@ -23,7 +23,7 @@ location=""
 
 send_mail_corrections ()
 {
-	send_mails "${corrections_regex}" "${correction_uid_regex}" "${correcion_uid_regex2}" "correction"
+	send_mails "${corrections_regex}" "${correction_uid_regex}" "${correction_uid_regex2}" "correction"
 }
 
 # Sends mail to remaining correctors
@@ -196,7 +196,6 @@ send_mails ()
 		info "-> Reading page source..."
 		i=0
 		block=0
-		first=1
 		project=""
 		while read -r line
 		do
@@ -224,9 +223,9 @@ send_mails ()
 				if echo "${line}" | grep -q "devez"
 				then
 					uid=`echo "${line}" | sed -nE "${2}"`
-					if [ -z "${uid}" ] && [ ! -z ${3} ]
+					if [ -z "${uid}" ] && [ ! -z "${3}" ]
 					then
-						uid=`echo "${line}" | sed -ne "${3}"`
+						uid=`echo "${line}" | sed -nE "${3}"`
 					fi
 					if [ ! -z "${uid}" ]
 					then

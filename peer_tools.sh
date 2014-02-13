@@ -15,7 +15,7 @@
 script_path=`dirname ${0}`
 includes_path="${script_path}/includes"
 templates_path="${script_path}/templates"
-version="2"
+version="2.1"
 verbose=0
 
 . "${includes_path}/utils.sh"
