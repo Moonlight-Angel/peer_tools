@@ -106,22 +106,31 @@ ask ()
 # Displays a menu with passed header, prompt, options and replies
 # $1 : Header value
 # $2 : Prompt value
-# $3 : List of menu options
-# $4 : List of reply commands associated to menu options
+# $3 : Variable name for multi-replies, empty for single reply
+#      (if multi-replies enabled, result is returned in passed variable name)
+# $4 : List of menu options
 # returns : No return
 
 menu ()
 {
-	if [ -z "${1}" ] || [ -z "${2}" ] || [ -z "${3}" ]
+	if [ -z "${1}" ] || [ -z "${2}" ] || [ -z "${4}" ]
 	then
-		echo "usage: menu \"header\" \"prompt\" \"options\""
+		echo "usage: menu \"header\" \"prompt\" \"multi replies\" \"options\""
 		return
 	fi
 	header="${1}"
 	prompt="${2}"
-	shift ; shift
+	multi=0
+	var_name=""
+	if [ ! -z "${3}" ]
+	then
+		multi=1
+		var_name="${3}"
+	fi
+	shift 3
 	options=("${@}")
 	choice=""
+	choices=""
 	i=1
 	while [ -z "${choice}" ]
 	do
@@ -134,18 +143,58 @@ menu ()
 		done
 		echo "-----------------------------------------------------"
 		i=1
+		if [ ${multi} == 1 ]
+		then
+			echo "-> Multiple options are possible, separate them with a space."
+		fi
 		echo "-> ${prompt}\c"
 		read choice
 		if [ ! -z "${choice}" ] && [ "${choice}" == "clear" ]
 		then
 			choice=""
 			clear
-		elif [ -z "${choice}" ] || [ "${choice}" = "0" ] || [ `echo "${choice}" | tr -d '[:digit:]' | wc -w` -gt 0 ] || [ -z "${options[${choice} - 1]}" ]
+		elif [ -z "${choice}" ] || [ "${choice}" = "0" ]
 		then
 			error "-> Invalid option."
 			choice=""
 		else
-			return `expr ${choice} - 1`
+			if [ ${multi} == 1 ]
+			then
+				if [ `echo "${choice}" | tr -d '[:digit:] ' | wc -w` -gt 0 ]
+				then
+					error "-> Invalid options."
+					choice=""
+				else
+					for op in ${choice}
+					do
+						if [ "${op}" -le "0" ] || [ -z "${options[${op} - 1]}" ]
+						then
+							error "-> Invalid option : '${op}'."
+							choices=""
+							choice=""
+						else
+							if [ -z "${choices}" ]
+							then
+								choices="`expr ${op} - 1`"
+							else
+								choices="${choices} `expr ${op} - 1`"
+							fi
+						fi
+					done
+					if [ ! -z "${choices}" ]
+					then
+						eval "${var_name}=\"${choices}\""
+					fi
+				fi
+			else
+				if [ `echo "${choice}" | tr -d '[:digit:]' | wc -w` -gt 0 ] || [ -z "${options[${choice} - 1]}" ]
+				then
+					error "-> Invalid option."
+					choice=""
+				else
+					return `expr ${choice} - 1`
+				fi
+			fi
 		fi
 	done
 }

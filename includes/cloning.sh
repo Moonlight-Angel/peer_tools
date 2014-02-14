@@ -55,7 +55,7 @@ clone_remaining_corrections ()
 				corrections=`get_repository 0 "${corrections_regex}"`
 			else
 				info "-> Multiple projects present, asking..."
-				menu "Which project would you like to clone ?" "Please enter your choice : " "${projects[@]}"
+				menu "Which project would you like to clone ?" "Please enter your choice : " "" "${projects[@]}"
 				selected=${?}
 				corrections=`get_repository ${selected} "${corrections_regex}"`
 			fi

@@ -65,7 +65,7 @@ main ()
 			"check_updates"
 			"bye_bye"
 		)
-		menu "Choose your option" "Please enter your choice : " "${options[@]}"
+		menu "Choose your option" "Please enter your choice : " "" "${options[@]}"
 		choice=${?}
 		echo
 		${reply[${choice}]}
