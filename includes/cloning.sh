@@ -52,6 +52,8 @@ clone_remaining_corrections ()
 			if [ ${i} == 1 ]
 			then
 				info "-> One project present, cloning..."
+				project_name=`echo ${projects} | sed -nE "${mail_project_name_regex}"`
+				echo "-> Only one project detected, cloning ${project_name}..."
 				corrections=`get_repository 0 "${corrections_regex}"`
 			else
 				info "-> Multiple projects present, asking..."
