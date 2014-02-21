@@ -23,7 +23,14 @@ location=""
 
 send_mail_corrections ()
 {
-	send_mails "${corrections_regex}" "${correction_uid_regex}" "${correction_uid_regex2}" "correction"
+	template=""
+	ask_template "template"
+	if [ ${?} -gt 1 ]
+	then
+		error "-> Error while selecting template."
+		return
+	fi
+	send_mails "${corrections_regex}" "${correction_uid_regex}" "${correction_uid_regex2}" "${template}"
 }
 
 # Sends mail to remaining correctors
@@ -31,7 +38,38 @@ send_mail_corrections ()
 
 send_mail_correctors ()
 {
-	send_mails "${correctors_regex}" "${corrector_uid_regex}" "" "corrector"
+	template=""
+	ask_template "template"
+	if [ ${?} -gt 1 ]
+	then
+		error "-> Error while selecting template."
+		return
+	fi
+	send_mails "${correctors_regex}" "${corrector_uid_regex}" "" "${template}"
+}
+
+# Asks user for template to use
+# $1 : Variable name to store the template name
+# returns : No return
+
+ask_template ()
+{
+	files=`find "${templates_path}" -type f -name "*.pt" -exec basename {} .pt ';' | tr '\n' ' '`
+	menu "Which template should I use ?" "Enter your choice : " "" ${files}
+	choice=${?}
+	i=0
+	for tmp in ${files}
+	do
+		if [ ${i} -eq ${choice} ]
+		then
+			eval "${1}=${tmp}"
+			return 0
+		else
+			i=`expr ${i} + 1`
+		fi
+	done
+	eval "${1}=\"\""
+	return 1
 }
 
 # Gets the current user informations and stores it in the global variables
@@ -96,21 +134,23 @@ get_sender_infos ()
 # Sends a mail
 # $1 : The project name
 # $2 : The content
+# $3 : The sender uid
+# $4 : The receiver uid
 
 send_mail ()
 {
-	if [ -z "${1}" ] || [ -z "${2}" ]
+	if [ -z "${1}" ] || [ -z "${2}" ] || [ -z "${3}" ] || [ -z "${4}" ]
 	then
-		echo "usage: send_mail \"project name\" \"content\""
+		echo "usage: send_mail \"project name\" \"content\" \"sender uid\" \"receiver uid\""
 		return
 	fi
-	echo "-> Sending mail to \033[4m${name}\033[0m"
-	subject="Correction du projet ${1} - ${login}"
+	echo "-> Sending mail to \033[4m${4}\033[0m"
+	subject="Correction du projet ${1} - ${3}"
 	if echo "${2}" | grep -q "<html>"
 	then
 		subject=`echo "${subject}\nContent-Type: text/html"`
 	fi
-	mail=`echo "${2}" | mail -s "${subject}" "${name}@student.42.fr" -f "${login}@student.42.fr" -F "${login}"`
+	mail=`echo "${2}" | mail -s "${subject}" "${4}@student.42.fr" -f "${3}@student.42.fr" -F "${3}"`
 	if [ ${?} == 1 ]
 	then
 		error "-> Error while sending mail."
@@ -139,6 +179,25 @@ send_mails ()
 	then
 		error "-> Cannot open template file."
 		return
+	fi
+	ask "-> Should I send you a testing e-mail with this template ?" "n"
+	response=${?}
+	if [ ${response} -eq 1 ]
+	then
+		name="test_user"
+		sender="${login}"
+		phone="0600000000"
+		email="test_user@student.42.fr"
+		location="bocal-wtf"
+		project="ProjetDeTest"
+		template_eval=`eval "echo \"${template}\""`
+		send_mail "${project}" "${template_eval}" "${login}" "${login}"
+		ask "-> Would you like to send the real mails now ?" "y"
+		response=${?}
+		if [ ${response} -eq 0 ]
+		then
+			return
+		fi
 	fi
 	echo "-> Connecting to intranet."
 	connect_to_intra
@@ -230,7 +289,7 @@ send_mails ()
 					then
 						name="${uid}"
 						template_eval=`eval "echo \"${template}\""`
-						send_mail "${project}" "${template_eval}"
+						send_mail "${project}" "${template_eval}" "${login}" "${name}"
 						i=`expr ${i} + 1`
 					fi
 				fi

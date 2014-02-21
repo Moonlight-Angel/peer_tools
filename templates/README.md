@@ -5,8 +5,14 @@ Templates :
 -----------
 
 You can easily create templates for the automatic e-mails.
-The template correction.pt is for the people you need to correct.
-The template corrector.pt is for the people who need to correct you.
+Name them as you want, you will be prompted to choose the template when sending the mails.
+Don't forget the ".pt" extension in the filename !
+
+There are two templates already written for you :
+- correction.pt, for the people you need to correct
+- corrector.pt, for the people who need to correct you
+
+Feel free to add more templates corresponding to different situations !
 
 A template can be plain text or HTML (which needs to contain at least an <html> tag).
 
