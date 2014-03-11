@@ -119,7 +119,7 @@ get_sender_infos ()
 				if [ -z "${location}" ]
 				then
 					info "-> Cannot find location."
-					error "-> Your location is needed by the tempate but cannot be found. Please edit the template."
+					error "-> Your location is needed by the template but cannot be found. Please edit the template."
 					return 0
 				fi
 			fi
