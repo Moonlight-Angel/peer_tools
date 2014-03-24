@@ -12,8 +12,8 @@
 # **************************************************************************** #
 
 # Global variables
-corrections_regex="s/^.*<h3>.*devez.*noter vos pairs.*projet <a.*>Sujet (.*)<\/a> avant le <span.*>(.*)<\/span><\/h3>.*$/\1 (\2)/p"
-correctors_regex="s/^.*<h3>.*devez.*sur votre rendu de <a.*>Sujet (.*)<\/a> \(<span.*>([0-9]+) note.*minimum des ([0-9]+).*\).*$/\1 (\2\/\3 required notes)/p"
+corrections_regex="s/^.*<h3>.*devez.*noter vos pairs.*projet <a.*>(.*)<\/a> avant le <span.*>(.*)<\/span><\/h3>.*$/\1 (\2)/p"
+correctors_regex="s/^.*<h3>.*devez.*sur votre rendu de <a.*>(.*)<\/a> \(<span.*>([0-9]+) note.*minimum des ([0-9]+).*\).*$/\1 (\2\/\3 required notes)/p"
 
 # Gets remaining corrections
 # returns : No return
