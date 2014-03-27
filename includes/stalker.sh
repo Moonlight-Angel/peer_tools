@@ -12,7 +12,7 @@
 # **************************************************************************** #
 
 # Global variables
-correction_uid_regex="s/^.*Sujet [A-Za-z0-9_-]+ (.*)<\/a>.*$/\1/p"
+correction_uid_regex="s/^.*groupe (.*)<\/a>.*$/\1/p"
 correction_uid_regex2="s/^.*\(e\) <a.*>(.*)<\/a>.*$/\1/p"
 corrector_uid_regex="s/^.*<\/a> par <a.*>(.*)<\/a>.*$/\1/p"
 

@@ -32,6 +32,7 @@ main ()
 	then
 		info "-> Verbose mode enabled."
 	fi
+	echo "\n-> Il est tres probable que vous ayez a renommer les dossiers clones, j'ai essaye de faire ce que j'ai pu pour sortir le meilleur nom possible, mais rien faire. Desole ! :/\n-> Il faudra aussi eviter d'utiliser l'envoi de mails automatiques pour les memes raisons, j'ai pas teste mais ca devrait vous envoyer des noms de projets et destinataires assez bizarres.\n-> Le shell devient assez limitant pour le coup...\n"
 	get_credentials "${credentials_file}"
 	check_updates 1
 	echo
